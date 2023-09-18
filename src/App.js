@@ -4,10 +4,14 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <TodoItem />
+      <TodoItem />
+      <TodoItem />
+
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edita el archivo <code>src/App.js</code> y guarda para recargar.
+          Edit el file <code>src/App.js</code> y save para reload.
         </p>
         <a
           className="App-link"
@@ -22,4 +26,13 @@ function App() {
   );
 }
 
+function TodoItem() {
+  return (
+    <li>
+      <span>V</span>
+      <p>Todo item</p>
+      <span>X</span>
+    </li>
+  );
+}
 export default App;
