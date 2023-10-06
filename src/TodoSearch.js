@@ -1,6 +1,11 @@
+import "./TodoSearch.css";
+
 function TodoSearch() {
   return(
-    <input placeholder='write your ToDo' />
+    <input 
+      placeholder='write your ToDo'
+      className="TodoSearch"
+     />
   );
 }
 
