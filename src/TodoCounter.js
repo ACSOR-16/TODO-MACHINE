@@ -1,7 +1,9 @@
+import "./TodoCounter.css";
+
 function TodoCounter({total, completed}) {
   return (
-    <h1>
-      you have completed {completed} of {total} task
+    <h1 className="TodoCounter">
+      you have completed <span>{completed}</span> of <span>{total}</span> task
     </h1>
   );
 }
