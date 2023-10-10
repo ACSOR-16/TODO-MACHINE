@@ -2,7 +2,17 @@ import "./ButtonTodo.css";
 
 function ButtonTodo() {
   return (
-    <button className="TodoButton"s>+</button>
+    <button 
+      className="TodoButton" 
+      onClick={ 
+        (event)=> {
+          console.log(event);
+          console.log(event.target);
+          console.log("click here");
+        }
+      }>
+      +
+    </button>
   );
 }
 
