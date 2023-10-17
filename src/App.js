@@ -31,7 +31,11 @@ function App() {
     const newToDos = [...toDos];
     const toDoIndex = newToDos.findIndex( (toDo) => toDo.text == text);
 
-    newToDos[toDoIndex].completed = true;
+    if (newToDos[toDoIndex].completed == true) {
+      newToDos[toDoIndex].completed = false;
+    } else {
+      newToDos[toDoIndex].completed = true
+    }
     setToDos(newToDos)
   };
   
@@ -43,6 +47,7 @@ function App() {
     setToDos(newToDos)
   };
   
+  console.log(toDos, setToDos);
   return (
     <>
       
