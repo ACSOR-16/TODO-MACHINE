@@ -27,7 +27,21 @@ function App() {
     return toDoText.includes(searchToDo);
   });
   
-  console.log("users find all " + searchValue);
+  const completeToDos = (text) => {
+    const newToDos = [...toDos];
+    const toDoIndex = newToDos.findIndex( (toDo) => toDo.text == text);
+
+    newToDos[toDoIndex].completed = true;
+    setToDos(newToDos)
+  };
+  
+  const deleteToDos = (text) => {
+    const newToDos = [...toDos];
+    const toDoIndex = newToDos.findIndex( (toDo) => toDo.text == text);
+
+    newToDos.splice(toDoIndex, 1);
+    setToDos(newToDos)
+  };
   
   return (
     <>
@@ -47,7 +61,10 @@ function App() {
           <TodoItem
             key={todo.text}
             text={todo.text}
-            completed={todo.completed}/>
+            completed={todo.completed}
+            onComplete={() => completeToDos(todo.text)}
+            onDelete={() => deleteToDos(todo.text)}  
+          />
         ))}
 
       </TodoList>
