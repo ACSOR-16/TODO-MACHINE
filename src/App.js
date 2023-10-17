@@ -19,6 +19,13 @@ function App() {
   
   const completedToDos = toDos.filter(todo => !!todo.completed).length;
   const totalToDos = toDos.length;
+
+  const searchedToDos = toDos.filter(toDo => {
+    const toDoText = toDo.text.toLowerCase();
+    const searchToDo = searchValue.toLowerCase();
+    
+    return toDoText.includes(searchToDo);
+  });
   
   console.log("users find all " + searchValue);
   
@@ -36,7 +43,7 @@ function App() {
       
       <TodoList>
         
-        {defaultTodo.map(todo => (
+        {searchedToDos.map(todo => (
           <TodoItem
             key={todo.text}
             text={todo.text}
