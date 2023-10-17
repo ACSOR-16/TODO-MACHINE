@@ -9,15 +9,30 @@ import './App.css';
 const defaultTodo = [
   {text: "cutting onion", completed: false},
   {text: "read the React Documentation", completed: false},  
-  {text: "make to the bed", completed: true}
+  {text: "make to the bed", completed: true},
+  {text: "use state React", completed: true},
 ];
 
 function App() {
+  const [toDos, setToDos] = React.useState(defaultTodo);
+  const [searchValue, setSearchValue] = React.useState("");
+  
+  const completedToDos = toDos.filter(todo => !!todo.completed).length;
+  const totalToDos = toDos.length;
+  
+  console.log("users find all " + searchValue);
+  
   return (
-    <React.Fragment>
+    <>
       
-      <TodoCounter completed={5} total={10}/>
-      <TodoSearch/>
+      <TodoCounter 
+        completed={completedToDos} 
+        total={totalToDos}
+      />
+      <TodoSearch
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
       
       <TodoList>
         
@@ -31,7 +46,7 @@ function App() {
       </TodoList>
 
       <ButtonTodo/>
-    </React.Fragment>
+    </>
   );
 }
 
