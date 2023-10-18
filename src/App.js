@@ -6,15 +6,25 @@ import { TodoItem } from './TodoItem';
 import { ButtonTodo } from './ButtonTodo';
 import './App.css'; 
 
-const defaultTodo = [
-  {text: "cutting onion", completed: false},
-  {text: "read the React Documentation", completed: false},  
-  {text: "make to the bed", completed: true},
-  {text: "use state React", completed: true},
-];
+// const defaultTodo = [
+//   {text: "cutting onion", completed: false},
+//   {text: "read the React Documentation", completed: false},  
+//   {text: "make to the bed", completed: true},
+//   {text: "use state React", completed: true},
+// ];
 
 function App() {
-  const [toDos, setToDos] = React.useState(defaultTodo);
+  const localStorageToDos = localStorage.getItem("TDS_V1");
+  
+  let parsedToDos;
+
+  if (!localStorageToDos) {
+    localStorage.setItem("TDS_V1", JSON.stringify([]));
+    parsedToDos = [];
+  } else {
+    parsedToDos = JSON.parse(localStorageToDos);
+  }
+  const [toDos, setToDos] = React.useState(parsedToDos);
   const [searchValue, setSearchValue] = React.useState("");
   
   const completedToDos = toDos.filter(todo => !!todo.completed).length;
@@ -27,6 +37,11 @@ function App() {
     return toDoText.includes(searchToDo);
   });
   
+  function saveTodo(newToDos) {
+    localStorage.setItem("TDS_V1", JSON.stringify(newToDos))
+    setToDos(newToDos)
+  }
+
   const completeToDos = (text) => {
     const newToDos = [...toDos];
     const toDoIndex = newToDos.findIndex( (toDo) => toDo.text == text);
@@ -36,7 +51,7 @@ function App() {
     } else {
       newToDos[toDoIndex].completed = true
     }
-    setToDos(newToDos)
+    saveTodo(newToDos)
   };
   
   const deleteToDos = (text) => {
@@ -44,7 +59,7 @@ function App() {
     const toDoIndex = newToDos.findIndex( (toDo) => toDo.text == text);
 
     newToDos.splice(toDoIndex, 1);
-    setToDos(newToDos)
+    saveTodo(newToDos)
   };
   
   console.log(toDos, setToDos);
