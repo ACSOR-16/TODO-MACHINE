@@ -4,7 +4,11 @@ import { useLocalStorage } from './useLocalStorage';
 
 
 function App() {
-  const [toDos, saveTodo] = useLocalStorage("TDS_V1", [])
+  const {
+    item: toDos, 
+    saveItem: saveTodo, 
+    loading, error
+  } = useLocalStorage("TDS_V1", [])
   const [searchValue, setSearchValue] = React.useState("");
   
   const completedToDos = toDos.filter(todo => !!todo.completed).length;
@@ -39,13 +43,15 @@ function App() {
   
   return (
     <AppUI
-    completedToDos={completedToDos}
-    totalToDos={totalToDos}
-    searchValue={searchValue}
-    setSearchValue={setSearchValue}
-    searchedToDos={searchedToDos}
-    completeToDos={completeToDos}
-    deleteToDos={deleteToDos}
+      completedToDos={completedToDos}
+      totalToDos={totalToDos}
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
+      searchedToDos={searchedToDos}
+      completeToDos={completeToDos}
+      deleteToDos={deleteToDos}
+      loading={loading}
+      error={error}
     />
   )
 }
