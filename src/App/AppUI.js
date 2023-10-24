@@ -10,50 +10,42 @@ import { EmptyToDos } from "../EmptyToDos";
 import { ToDoContext } from "../ToDoContext";
 
 function AppUI() {
+  const {
+    searchedToDos,
+    completeToDos,
+    deleteToDos,
+    loading,
+    error,
+  } = React.useContext(ToDoContext);
   return (
     <>
+     
+      <TodoCounter />
+      <TodoSearch />
       
-      <TodoCounter 
-        // completed={completedToDos} 
-        // total={totalToDos}
-      />
-      <TodoSearch
-        // searchValue={searchValue}
-        // setSearchValue={setSearchValue}
-      />
-      
-      <ToDoContext.Provider>
-        {({
-          searchedToDos,
-          completeToDos,
-          deleteToDos,
-          loading,
-          error,
-        })=> (
-          <TodoList>
-            {loading && ( 
-              <>  
-                <ToDosLoading/>
-                <ToDosLoading/>
-                <ToDosLoading/>
-              </>
-            )}
-            {error && <ToDosError/>}
-            {(!loading && searchedToDos.length === 0) && <EmptyToDos/>}
-
-            {searchedToDos.map(todo => (
-              <TodoItem
-                key={todo.text}
-                text={todo.text}
-                completed={todo.completed}
-                onComplete={() => completeToDos(todo.text)}
-                onDelete={() => deleteToDos(todo.text)}  
-              />
-            ))}
-
-          </TodoList>
+      <TodoList>
+        {loading && ( 
+          <>  
+            <ToDosLoading/>
+            <ToDosLoading/>
+            <ToDosLoading/>
+          </>
         )}
-      </ToDoContext.Provider>
+        {error && <ToDosError/>}
+        {(!loading && searchedToDos.length === 0) && <EmptyToDos/>}
+
+        {searchedToDos.map(todo => (
+          <TodoItem
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+            onComplete={() => completeToDos(todo.text)}
+            onDelete={() => deleteToDos(todo.text)}  
+          />
+        ))}
+
+      </TodoList>
+
       <ButtonTodo/>
     </>
   );
