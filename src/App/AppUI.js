@@ -4,6 +4,9 @@ import { TodoSearch } from '../TodoSearch';
 import { TodoList } from '../TodoList';
 import { TodoItem } from '../TodoItem';
 import { ButtonTodo } from '../ButtonTodo';
+import { ToDosLoading } from '../ToDosLoading'; 
+import { ToDosError } from "../ToDosError"; 
+import { EmptyToDos } from "../EmptyToDos"; 
 
 function AppUI({
   completedToDos,
@@ -29,9 +32,15 @@ function AppUI({
       />
       
       <TodoList>
-        {loading && <p>Loading...</p>}
-        {error && <p>Please wait, there was an error</p>}
-        {(!loading && searchedToDos.length === 0) && <p>Write your first ToDo</p>}
+        {loading && ( 
+          <>  
+            <ToDosLoading/>
+            <ToDosLoading/>
+            <ToDosLoading/>
+          </>
+        )}
+        {error && <ToDosError/>}
+        {(!loading && searchedToDos.length === 0) && <EmptyToDos/>}
 
         {searchedToDos.map(todo => (
           <TodoItem
