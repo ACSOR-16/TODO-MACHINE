@@ -7,53 +7,53 @@ import { ButtonTodo } from '../ButtonTodo';
 import { ToDosLoading } from '../ToDosLoading'; 
 import { ToDosError } from "../ToDosError"; 
 import { EmptyToDos } from "../EmptyToDos"; 
+import { ToDoContext } from "../ToDoContext";
 
-function AppUI({
-  completedToDos,
-  totalToDos,
-  searchValue,
-  setSearchValue,
-  searchedToDos,
-  completeToDos,
-  deleteToDos,
-  loading,
-  error
-}) {
+function AppUI() {
   return (
     <>
       
       <TodoCounter 
-        completed={completedToDos} 
-        total={totalToDos}
+        // completed={completedToDos} 
+        // total={totalToDos}
       />
       <TodoSearch
-        searchValue={searchValue}
-        setSearchValue={setSearchValue}
+        // searchValue={searchValue}
+        // setSearchValue={setSearchValue}
       />
       
-      <TodoList>
-        {loading && ( 
-          <>  
-            <ToDosLoading/>
-            <ToDosLoading/>
-            <ToDosLoading/>
-          </>
+      <ToDoContext.Provider>
+        {({
+          searchedToDos,
+          completeToDos,
+          deleteToDos,
+          loading,
+          error,
+        })=> (
+          <TodoList>
+            {loading && ( 
+              <>  
+                <ToDosLoading/>
+                <ToDosLoading/>
+                <ToDosLoading/>
+              </>
+            )}
+            {error && <ToDosError/>}
+            {(!loading && searchedToDos.length === 0) && <EmptyToDos/>}
+
+            {searchedToDos.map(todo => (
+              <TodoItem
+                key={todo.text}
+                text={todo.text}
+                completed={todo.completed}
+                onComplete={() => completeToDos(todo.text)}
+                onDelete={() => deleteToDos(todo.text)}  
+              />
+            ))}
+
+          </TodoList>
         )}
-        {error && <ToDosError/>}
-        {(!loading && searchedToDos.length === 0) && <EmptyToDos/>}
-
-        {searchedToDos.map(todo => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={() => completeToDos(todo.text)}
-            onDelete={() => deleteToDos(todo.text)}  
-          />
-        ))}
-
-      </TodoList>
-
+      </ToDoContext.Provider>
       <ButtonTodo/>
     </>
   );
