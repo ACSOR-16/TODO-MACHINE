@@ -8,6 +8,7 @@ import { ToDosLoading } from '../ToDosLoading';
 import { ToDosError } from "../ToDosError"; 
 import { EmptyToDos } from "../EmptyToDos"; 
 import { ToDoContext } from "../ToDoContext";
+import { Modal } from "../Modal";
 
 function AppUI() {
   const {
@@ -16,6 +17,8 @@ function AppUI() {
     deleteToDos,
     loading,
     error,
+    openModal,
+    setOpenModal
   } = React.useContext(ToDoContext);
   return (
     <>
@@ -47,6 +50,12 @@ function AppUI() {
       </TodoList>
 
       <ButtonTodo/>
+
+      {openModal && (
+        <Modal> 
+          fun
+        </Modal>
+      )}
     </>
   );
 }
