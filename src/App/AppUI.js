@@ -49,11 +49,13 @@ function AppUI() {
 
       </TodoList>
 
-      <ButtonTodo/>
+      <ButtonTodo
+        setOpenModal={setOpenModal}
+      />
 
       {openModal && (
         <Modal> 
-          fun
+          fun 
         </Modal>
       )}
     </>
