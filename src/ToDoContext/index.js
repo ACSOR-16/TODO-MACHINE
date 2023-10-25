@@ -21,6 +21,15 @@ function TodoProvider({children}) {
     
     return toDoText.includes(searchToDo);
   });
+
+  const addToDo = (text) => {
+    const newToDos = [...toDos];
+    newToDos.push({
+      text,
+      completed: false,
+    });
+    saveTodo(newToDos)
+  };
   
   const completeToDos = (text) => {
     const newToDos = [...toDos];
@@ -49,6 +58,7 @@ function TodoProvider({children}) {
       searchValue,
       setSearchValue,
       searchedToDos,
+      addToDo,
       completeToDos,
       deleteToDos,
       loading,
